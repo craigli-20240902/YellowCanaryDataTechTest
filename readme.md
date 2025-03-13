@@ -67,8 +67,7 @@ pytest pipeline/test_pipeline_utils.py
 
 ### **7. Generate a Coverage Report**  
 ```bash
-coverage run -m pytest
-coverage report -m
+coverage run -m pytest && coverage report -m
 ```
 
 ### **8. Generate an HTML Coverage Report (Optional)**  
