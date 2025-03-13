@@ -23,6 +23,7 @@ QUARTERS = {
 }
 OTE_SUPER_RATE = 0.095
 GROUP_BY_CRITERIA = ["employee_code", "year", "quarter"]
+ROUNDING_PRECISION = 2
 
 
 class Quarter(Enum):
@@ -257,7 +258,7 @@ def refine_merged_df(merged_df: pd.DataFrame) -> pd.DataFrame:
         "variance",
     ]
     merged_df[columns_to_round] = merged_df[columns_to_round].apply(
-        lambda x: x.round(2)
+        lambda x: x.round(ROUNDING_PRECISION)
     )
     # Sort the DataFrame by employee_code, year, and quarter
     merged_df = merged_df.sort_values(by=["employee_code", "year", "quarter"])
