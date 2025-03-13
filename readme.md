@@ -60,6 +60,8 @@ python pipeline/pipeline.py
 ### **6. Run Unit Tests**  
 ```bash
 pytest pipeline/test_pipeline.py
+```
+```bash
 pytest pipeline/test_pipeline_utils.py
 ```
 
