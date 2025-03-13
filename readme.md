@@ -52,9 +52,8 @@ python pipeline/pipeline.py
   ```
 - The final **metrics report** (`metrics.csv` and `metrics.xlsx`) will be saved in:  
   ```
-  data/metrics/
+  metrics/
   ```
-
 ---
 
 ## **Running Tests and Generating Coverage Reports**  
