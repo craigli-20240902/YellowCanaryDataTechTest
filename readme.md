@@ -10,6 +10,12 @@ cd YellowCanaryDataTechTest
 
 ### **2. Set Up a Virtual Environment**  
 
+Python version used for this project: **3.12.2**
+
+You can use pyenv to install and manage multiple versions of Python runtime.
+
+```bash
+
 #### **Create the Virtual Environment**  
 ```bash
 python -m venv .venv
