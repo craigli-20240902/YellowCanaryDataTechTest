@@ -18,6 +18,16 @@ PAYCODES_FILE = "PayCodes.csv"
 
 
 class ConvertExcelToCSV(luigi.Task):
+    """
+    Luigi Task to convert specific sheets from an Excel file to CSV files.
+    Attributes:
+        source_file (luigi.Parameter): The path to the source Excel file.
+        target_directory (luigi.Parameter): The directory where the CSV files will be saved.
+    Methods:
+        output(): Specifies the output targets for the task.
+        run(): Reads the specified sheets from the Excel file and writes them as CSV files to the target directory.
+    """
+
     source_file = luigi.Parameter()
     target_directory = luigi.Parameter()
 
@@ -46,6 +56,27 @@ class ConvertExcelToCSV(luigi.Task):
 
 
 class CalculateMetrics(luigi.Task):
+    """
+    A Luigi Task to calculate metrics from raw data.
+
+    Attributes:
+        base_path (luigi.Parameter): The base directory path where data is stored.
+        excel_super_data (luigi.Parameter): The name of the Excel file containing the super data.
+
+    Methods:
+        requires(): Specifies the task dependencies.
+        output(): Specifies the output target of the task.
+        run(): Executes the task to calculate metrics and save the results.
+
+    Requires:
+        ConvertExcelToCSV: A task to convert the Excel file to CSV format.
+
+    Outputs:
+        A CSV file and an Excel file containing the calculated metrics.
+
+    Example:
+        luigi.build([CalculateMetrics(base_path='/path/to/base', excel_super_data='data.xlsx')])
+    """
     base_path = luigi.Parameter()
     excel_super_data = luigi.Parameter()
 

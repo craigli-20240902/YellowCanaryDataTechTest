@@ -38,6 +38,19 @@ def read_csv(file_path: str) -> pd.DataFrame:
 
 
 def get_seasonal_quarter(date_str: str) -> str:
+    """
+    Determine the seasonal quarter for a given date.
+
+    Args:
+        date_str (str): The date string in the format 'YYYY-MM-DD'.
+
+    Returns:
+        str: The seasonal quarter ('Q1', 'Q2', 'Q3', or 'Q4') corresponding
+        to the given date.
+
+    Raises:
+        ValueError: If the date_str is not in the correct format.
+    """
     date = datetime.strptime(date_str, "%Y-%m-%d")
     if 1 <= date.month <= 3:
         return Quarter.Q1.value
@@ -63,7 +76,8 @@ def get_year(date_str: str) -> int:
     date = datetime.strptime(date_str, "%Y-%m-%d")
     return date.year
 
-# A function that determines from when the disbursement is from
+
+# The function that determines from when the disbursement is from
 
 
 def get_disbursed_quarter(date_str: str) -> str:
@@ -116,8 +130,30 @@ def get_disbursed_quarter(date_str: str) -> str:
 def calculate_ote_and_super(
     payslips: pd.DataFrame, paycodes: pd.DataFrame
 ) -> pd.DataFrame:
-    """Calculate the total OTE and super payable amount for each
-    employee per year and quarter."""
+    """
+    Calculate the Ordinary Time Earnings (OTE) and superannuation payable
+      for employees.
+
+    This function filters the payslips to include only OTE payable amounts
+    and then groups
+    the data by employee code, year, and quarter. It calculates the total OTE
+    and total superannuation payable for each group.
+
+    Args:
+        payslips (pd.DataFrame): A DataFrame containing payslip information
+                                 with columns such as 'employee_code',
+                                 'year', 'quarter', 'amount',
+                                 etc.
+        paycodes (pd.DataFrame): A DataFrame containing paycode information
+                                 used to filter the payslips for OTE payable
+                                 amounts.
+
+    Returns:
+        pd.DataFrame: A DataFrame with columns 'employee_code', 'year',
+                      'quarter', 'total_ote', and 'total_super_payable',
+                      representing the aggregated OTE and superannuation
+                      payable for each employee per year and quarter.
+    """
     ote_df = filter_ote_payable(payslips, paycodes)
     # Group by EmployeeCode, Year, and Quarter
     ote_grouped = (
@@ -134,7 +170,8 @@ def calculate_ote_and_super(
     ]
     return ote_grouped
 
-# The function that can calculate what super is payable 
+
+# The function that can calculate what super is payable
 
 
 def filter_ote_payable(
@@ -182,9 +219,11 @@ def calculate_disbursed(disbursements: pd.DataFrame) -> pd.DataFrame:
 # The function that establishes the variance between what was
 # payable and what was disbursed
 
+
 def calculate_variance(
     ote_super: pd.DataFrame, disbursed: pd.DataFrame
 ) -> pd.DataFrame:
+    # Merge the OTE and super payable DataFrame to calculate the variance
     merged_df = pd.merge(
         ote_super, disbursed, on=GROUP_BY_CRITERIA, how="outer"
     ).fillna(0)
