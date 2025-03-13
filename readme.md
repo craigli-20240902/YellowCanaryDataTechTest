@@ -32,7 +32,7 @@ python -m venv .venv
 
 ### **3. Install Dependencies**  
 ```bash
-pip install uv && pip install -r requirements.txt
+pip install uv && uv pip install -r requirements.txt
 ```
 
 ### **4. Run the Pipeline**  
