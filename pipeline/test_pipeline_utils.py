@@ -22,17 +22,6 @@ Doe,22,Chicago"""
     return file_path
 
 
-def test_read_csv(csv_file):
-    result = read_csv(csv_file)
-    expected = [
-        {"name": "John", "age": 30, "city": "New York"},
-        {"name": "Jane", "age": 25, "city": "Los Angeles"},
-        {"name": "Doe", "age": 22, "city": "Chicago"},
-    ]
-    expected = pd.DataFrame(expected)
-    pd.testing.assert_frame_equal(result, expected)
-
-
 @pytest.fixture
 def payslips():
     return pd.DataFrame(
@@ -53,6 +42,21 @@ def paycodes():
     )
 
 
+@pytest.fixture
+def disbursements():
+    return pd.DataFrame(
+        {
+            "employee_code": ["E1", "E2", "E1"],
+            "payment_made": [
+                "2023-02-15T00:00:00",
+                "2023-05-15T00:00:00",
+                "2023-08-15T00:00:00",
+            ],
+            "sgc_amount": [100, 200, 150],
+        }
+    )
+
+
 def test_calculate_ote_and_super(payslips, paycodes):
     result = calculate_ote_and_super(payslips, paycodes)
     print("result: ", result)
@@ -68,19 +72,15 @@ def test_calculate_ote_and_super(payslips, paycodes):
     pd.testing.assert_frame_equal(result, expected)
 
 
-@pytest.fixture
-def disbursements():
-    return pd.DataFrame(
-        {
-            "employee_code": ["E1", "E2", "E1"],
-            "payment_made": [
-                "2023-02-15T00:00:00",
-                "2023-05-15T00:00:00",
-                "2023-08-15T00:00:00",
-            ],
-            "sgc_amount": [100, 200, 150],
-        }
-    )
+def test_read_csv(csv_file):
+    result = read_csv(csv_file)
+    expected = [
+        {"name": "John", "age": 30, "city": "New York"},
+        {"name": "Jane", "age": 25, "city": "Los Angeles"},
+        {"name": "Doe", "age": 22, "city": "Chicago"},
+    ]
+    expected = pd.DataFrame(expected)
+    pd.testing.assert_frame_equal(result, expected)
 
 
 def test_calculate_disbursed(disbursements, mocker):
