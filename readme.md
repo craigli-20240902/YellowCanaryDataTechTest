@@ -4,8 +4,7 @@
 
 ### **1. Clone the Repository and Navigate to the Directory**  
 ```bash
-git clone https://github.com/craigli-20240902/YellowCanaryDataTechTest.git
-cd YellowCanaryDataTechTest
+git clone https://github.com/craigli-20240902/YellowCanaryDataTechTest.git && cd YellowCanaryDataTechTest
 ```
 
 ### **2. Set Up a Virtual Environment**  
